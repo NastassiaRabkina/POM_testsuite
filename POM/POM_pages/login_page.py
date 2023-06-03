@@ -17,9 +17,14 @@ class LoginPage(BasePage):
 		self.element_selectors = ['//h2', '//h4', '//label', '//input', '//button']
 		self.elements_numbers = [1, 1, 2, 2, 1]
 
-	def login(self, creds):
-		self.find(self.username_field).send_keys(creds[0])
-		self.find(self.password_field).send_keys(creds[1])
+	def login(self, username, password):
+		if password == None:
+			self.find(self.username_field).send_keys(username)
+		elif username == None:
+			self.find(self.password_field).send_keys(password)
+		else:
+			self.find(self.username_field).send_keys(username)
+			self.find(self.password_field).send_keys(password)
 		self.find(self.login_button).click()
 
 	def verify_success_message(self):
@@ -34,12 +39,4 @@ class LoginPage(BasePage):
 
 	def close_error_banner(self):
 		self.find(self.close_banner_button).click()
-		self.wait_until_abscent(self.error_message)	
-
-	def login_without_username(self, creds):
-		self.find(self.password_field).send_keys(creds[1])
-		self.find(self.login_button).click()
-
-	def login_without_password(self, creds):
-		self.find(self.username_field).send_keys(creds[0])
-		self.find(self.login_button).click()
+		self.wait_until_abscent(self.error_message)

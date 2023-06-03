@@ -1,7 +1,7 @@
 from POM_pages.home_page import HomePage
 from POM_pages.login_page import LoginPage
 
-def test_echo_box_displays_message_back(driver):
+def test_login_form(driver, set_username, set_password):
 	home = HomePage(driver)
 
 	#go to Login Page
@@ -11,23 +11,27 @@ def test_echo_box_displays_message_back(driver):
 	log.check_page_ui(log.element_selectors, log.elements_numbers)
 
 	#check login with valid login and password
-	valid_creds = ['tomsmith','SuperSecretPassword!']
-	log.login(valid_creds)
+	password = set_password
+	username = set_username
+	log.login(username, password)
 	assert log.verify_success_message() == 'Welcome to the Secure Area. When you are done click logout below.'
 	log.logout()
 
 	#check login with invalid login and password
-	invalid_creds = ['admin','admin!']
-	log.login(invalid_creds)
+	invalid_username = 'admin'
+	invalid_password = 'admin!'
+	log.login(invalid_username, invalid_password)
 	log.check_error_banner()
 	log.close_error_banner()
 
 	#check login without password
-	log.login_without_password(valid_creds)
+	set_password = None
+	log.login(username, set_password)
 	log.check_error_banner()
 	log.close_error_banner()
 
 	#check login without username
-	log.login_without_username(valid_creds)
+	set_username = None
+	log.login(set_username, password)
 	log.check_error_banner()
 	log.close_error_banner()

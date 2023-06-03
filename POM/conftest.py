@@ -31,4 +31,20 @@ def driver(get_config):
     driver.get(url)
     yield driver
     driver.quit()
+
+
+@pytest.fixture
+def set_username(get_config):
+    username = get_config.get('username')
+    if not username:
+        raise ValueError("Username is empty")
+    return username
+
+
+@pytest.fixture
+def set_password(get_config):
+    password = get_config.get('password')
+    if not password:
+        raise ValueError("Password is empty")
+    return password
     
