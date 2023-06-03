@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 
-from POM_suite.base_page import BasePage
-from POM_suite.login_page import LoginPage
+from POM_pages.base_page import BasePage
+from POM_pages.login_page import LoginPage
 
 
 class HomePage(BasePage):

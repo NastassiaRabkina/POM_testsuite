@@ -1,5 +1,5 @@
-from POM_suite.home_page import HomePage
-from POM_suite.login_page import LoginPage
+from POM_pages.home_page import HomePage
+from POM_pages.login_page import LoginPage
 
 def test_echo_box_displays_message_back(driver):
 	home = HomePage(driver)
