@@ -1,5 +1,4 @@
 from POM_pages.home_page import HomePage
-from POM_pages.login_page import LoginPage
 
 def test_login_form(driver, set_username, set_password):
 	home = HomePage(driver)
