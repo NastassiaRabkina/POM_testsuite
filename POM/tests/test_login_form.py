@@ -1,6 +1,7 @@
 from POM_pages.home_page import HomePage
+from model.user import User
 
-def test_login_form(driver, set_username, set_password):
+def test_login_form(driver, username, password):
 	home = HomePage(driver)
 
 	#go to Login Page
@@ -10,27 +11,25 @@ def test_login_form(driver, set_username, set_password):
 	log.check_page_ui(log.element_selectors, log.elements_numbers)
 
 	#check login with valid login and password
-	password = set_password
-	username = set_username
-	log.login(username, password)
+	usr1 = User(username, password)
+	log.login(usr1.username, usr1.password)
 	assert log.verify_success_message() == 'Welcome to the Secure Area. When you are done click logout below.'
 	log.logout()
 
 	#check login with invalid login and password
-	invalid_username = 'admin'
-	invalid_password = 'admin!'
-	log.login(invalid_username, invalid_password)
+	usr2 = User('admin', 'admin!')
+	log.login(usr2.username, usr2.password)
 	log.check_error_banner()
 	log.close_error_banner()
 
 	#check login without password
-	set_password = None
-	log.login(username, set_password)
+	usr3 = User.create_user_without_password(username)
+	log.login(usr3.username, usr3.password)
 	log.check_error_banner()
 	log.close_error_banner()
 
 	#check login without username
-	set_username = None
-	log.login(set_username, password)
+	usr4 = User.create_user_without_username(password)
+	log.login(usr4.username, usr4.password)
 	log.check_error_banner()
 	log.close_error_banner()
