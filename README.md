@@ -31,7 +31,7 @@ pip3 install -r requirements.txt
 
 To execute the test suite, use the following command:
 ```bash
-pytest verify_login_form.py
+pytest --environment=test test_login_form.py
 ```
 This command will run the Pytest suite to verify the login form.
 
