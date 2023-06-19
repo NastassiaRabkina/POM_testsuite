@@ -1,10 +1,28 @@
 pipeline {
-    agent { docker { image 'python:3.10.7-alpine' } }
+    agent any 
+
     stages {
-        stage('build') {
+        stage('Checkout') {
             steps {
-                sh 'pip3 install --user -r requirements.txt'
-                sh 'pytest --environment=test test_login_form.py'
+                checkout scm
+            }
+        }
+        stage('Setup Python Environment') {
+            steps {
+                sh '''
+                python3 -m venv .env
+                source .env/bin/activate
+                pip3 install --upgrade pip
+                pip3 install -r requirements.txt
+                '''
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                sh '''
+                source .env/bin/activate
+                pytest --environment=test test_login_form.py
+                '''
             }
         }
     }
