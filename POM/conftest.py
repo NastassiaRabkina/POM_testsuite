@@ -7,6 +7,9 @@ import os
 import argparse
 import logging
 
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+
 def pytest_addoption(parser):
     parser.addoption(
         "--environment", action="store", choices=['test'], help="Environment to run tests against"
@@ -16,7 +19,7 @@ def pytest_addoption(parser):
 def get_config(request):
     environment = request.config.getoption("--environment")
     if environment == 'test':
-        config_path = os.path.join('/Users/nastassiarabkina/Desktop/py_course/POM/properties', 'test.properties.json')
+        config_path  = os.path.join(script_dir, 'properties', 'test.properties.json')
     else:
         raise ValueError(f"Configuration file doesn't exist in properties folder")
     with open(config_path) as config_file:
@@ -26,7 +29,10 @@ def get_config(request):
 
 def pytest_sessionstart(session):
     global log_file_path
-    log_file_path = os.path.join('/Users/nastassiarabkina/Desktop/py_course/POM/output', 'test.log')
+    directory = os.path.join(script_dir, 'output')
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    log_file_path = os.path.join(directory, 'test.log')
     with open(log_file_path, 'w') as _:
         pass
 
