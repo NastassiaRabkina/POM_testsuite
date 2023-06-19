@@ -40,6 +40,11 @@ pytest --environment=test tests/test_login_form.py
 ```
 
 This command will run the Pytest suite to verify the login form.
+## CI/CD
+To setup pipeline:<br>
+Create new multibranch project<br>
+Source = github, Repository URL = https://github.com/NastassiaRabkina/POM_testsuite.git<br>
+Build Configuration = [JenkinsFile](https://github.com/NastassiaRabkina/POM_testsuite/blob/main/POM/Jenkinsfile), Script Path = POM/JenkinsFile
 
 ## Author
 
