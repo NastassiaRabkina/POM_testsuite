@@ -1,27 +1,22 @@
 pipeline {
-    agent any 
+    agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-        stage('Setup Python Environment') {
+        stage('Setup') {
             steps {
                 sh '''
-                python3 -m venv .env
-                source .env/bin/activate
-                pip3 install --upgrade pip
-                pip3 install -r requirements.txt
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install -r requirements.txt
                 '''
             }
         }
-        stage('Run Tests') {
+
+        stage('Test') {
             steps {
                 sh '''
-                source .env/bin/activate
-                pytest --environment=test test_login_form.py
+                    . venv/bin/activate
+                    pytest --environment=test test_login_form.py
                 '''
             }
         }
