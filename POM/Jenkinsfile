@@ -3,8 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'pip3 install pytest --user'
-                sh 'pip3 install selenium --user'
+                sh 'pip3 install -r requirements.txt'
                 sh 'pytest --environment=test test_login_form.py'
             }
         }
